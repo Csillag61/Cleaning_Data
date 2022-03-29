@@ -29,7 +29,7 @@ combined_updated = combined.set_index('YEAR')
 sns.heatmap(combined_updated.isnull(), cbar=False)
 regions_2017 = combined[combined['YEAR'] == 2017]['REGION']
 missing = regions_2017.isnull().sum() #164
-
+regions= pd.DataFrame()
 regions['COUNTRY']= combined['COUNTRY']
 regions['REGION']=combined['REGION']
 regions=pd.concat([regions['COUNTRY'], regions['REGION']], axis=1)
@@ -45,3 +45,28 @@ print(combined[dups])
 combined[combined['COUNTRY'] == 'SOMALILAND REGION']
 combined['COUNTRY'] = combined['COUNTRY'].str.upper()
 combined = combined.drop_duplicates(['COUNTRY', 'YEAR'])
+combined.isnull().sum()
+mapping = {'REGION__y': 'REGION'}
+combined.rename(mapping, inplace=True)
+combined.isnull().sum()
+
+columns_to_drop = ['LOWER CONFIDENCE INTERVAL', 'STANDARD ERROR', 'UPPER CONFIDENCE INTERVAL', 'WHISKER HIGH', 'WHISKER LOW']
+
+combined=combined.drop(columns_to_drop, axis=1)
+missing=combined.isnull().sum()
+combined.notnull().sum().sort_values()
+
+#set the thresh parameter equal to 159 in the df.dropna() method to drop them.
+
+combined=combined.dropna(axis=1, thresh=159)
+missing=combined.isnull().sum()
+
+sorted = combined.set_index('REGION').sort_values(['REGION', 'HAPPINESS SCORE'])
+sns.heatmap(sorted.isnull(), cbar=False)
+
+happiness_mean = combined['HAPPINESS SCORE'].mean()
+print(happiness_mean)
+combined['HAPPINESS SCORE UPDATED'] = combined['HAPPINESS SCORE'].fillna( happiness_mean )
+print(combined['HAPPINESS SCORE UPDATED'].mean())
+combined = combined.dropna()
+missing = combined.isnull().sum()
