@@ -84,8 +84,8 @@ dete_survey_updated['separationtype'].value_counts()
 # Termination                          15
 # Name: separationtype, dtype: int64
 
-tafe_resignations = tafe_survey_updated[tafe_survey_updated['separationtype']=='Resignation'].copy()
-dete_resignations = dete_survey_updated[dete_survey_updated['separationtype']=='Resignation'].copy()
+tafe_resignations = tafe_survey_updated[tafe_survey_updated['separationtype'] == 'Resignation'].copy()
+dete_resignations = dete_survey_updated[dete_survey_updated['separationtype'] == 'Resignation'].copy()
 
 # Since the cease_date is the last year of the person's employment and the dete_start_date is the person's first year of employment, it wouldn't make sense to have years after the current date. Given that most people in this field start working in their 20s, it's also unlikely that the dete_start_date was before the year 1940.
 
@@ -120,7 +120,8 @@ dete_resignations['dete_start_date'].value_counts().sort_index(ascending=True)
 
 # Check the unique values and look for outliers
 tafe_resignations['cease_date'].value_counts().sort_values()
-dete_resignations['institute_service']=dete_resignations['cease_date']-dete_resignations['dete_start_date']
+dete_resignations['institute_service'] = dete_resignations['cease_date'] -
+dete_resignations['dete_start_date']
 
 tafe_resignations['Contributing Factors. Dissatisfaction'].value_counts()
 

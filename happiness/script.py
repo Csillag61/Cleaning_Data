@@ -14,7 +14,6 @@ shape_2016 = happiness2016.shape
 shape_2017 = happiness2017.shape
 
 missing_2015 = happiness2015.isnull().sum()
-missing_2016 = happiness2016.isnull().sum()
 missing_2017 = happiness2017.isnull().sum()
 
 happiness2017.columns = happiness2017.columns.str.replace('.', ' ').str.replace('\s+', ' ').str.strip().str.upper()
